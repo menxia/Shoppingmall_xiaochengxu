@@ -1,5 +1,5 @@
 // client/pages/detail/detail.js
-const qclout = require('../../vendor/wafer2-client-sdk/index.js')
+const qcloud = require('../../vendor/wafer2-client-sdk/index.js')
 const config = require('../../config.js')
 
 Page({
@@ -23,7 +23,7 @@ Page({
       title: '商品数据加载中...',
     })
 
-    qclout.request({
+    qcloud.request({
       url: config.service.productDetail + id,
       success: result => {
         wx.hideLoading()
@@ -31,7 +31,7 @@ Page({
         let data = result.data
         if(!data.code){
           this.setData({
-            product: data.data[0]
+            product: data.data
           }) 
           }else {
             setTimeout(()=>{
