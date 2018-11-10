@@ -10,7 +10,43 @@ Page({
    */
   data: {
     userInfo: null,
-    locationAuthType: app.data.locationAuthType
+    locationAuthType: app.data.locationAuthType,
+    orderList: [
+      // {
+      //   id: 0,
+      //   list: [{
+      //     count: 1,
+      //     image: 'https://product-1256969339.cos.ap-shanghai.myqcloud.com/product2.jpg',
+      //     name: '商品1',
+      //     price: 50.5,
+      //   }]
+      // },
+      // {
+      //   id: 1,
+      //   list: [{
+      //     count: 1,
+      //     image: 'https://product-1256969339.cos.ap-shanghai.myqcloud.com/product2.jpg',
+      //     name: '商品1',
+      //     price: 50.5,
+      //   },
+      //   {
+      //     count: 1,
+      //     image: 'https://product-1256969339.cos.ap-shanghai.myqcloud.com/product3.jpg',
+      //     name: '商品2',
+      //     price: 50.5,
+      //   }
+      //   ]
+      // },
+      // {
+      //   id: 2,
+      //   list: [{
+      //     count: 1,
+      //     image: 'https://product-1256969339.cos.ap-shanghai.myqcloud.com/product3.jpg',
+      //     name: '商品2',
+      //     price: 50.5,
+      //   }]
+      // }
+    ], // 订单列表
   },
 
   /**
@@ -31,6 +67,41 @@ Page({
       error: () => {
         this.setData({
           locationAuthType: app.data.locationAuthType
+        })
+      }
+    })
+
+    this.getOrder()
+  },
+
+  getOrder(){
+    wx.showLoading({
+      title: '刷新订单数据...',
+    })
+    qcloud.request({
+      url: config.service.orderList,
+      login: true,
+      success: result => {
+        wx.hideLoading()
+
+        let data = result.data 
+        if(!data.code){
+          this.setData({
+            orderList: data.data
+          })
+        } else {
+          wx.showToast({
+            title: '刷新订单数据失败',
+            icon: 'none'
+          })
+        }
+      },
+      fail: () =>{
+        wx.hideLoading()
+
+        wx.showToast({
+          icon: 'none',
+          title: '刷新订单数据失败',
         })
       }
     })
@@ -55,6 +126,7 @@ Page({
         this.setData({
           userInfo
         })
+        this.getOrder()
       }
     })
   },

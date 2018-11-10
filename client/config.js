@@ -28,6 +28,10 @@ var config = {
         productDetail: `${host}/weapp/product/`,
         
         user: `${host}/weapp/user`,
+
+        addOrder: `${host}/weapp/order`,
+
+        orderList: `${host}/weapp/order`
     }
 };
 
