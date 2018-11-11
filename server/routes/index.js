@@ -40,5 +40,10 @@ router.post('/order', validationMiddleware, controllers.order.add)
 
 router.get('/order', validationMiddleware, controllers.order.list)
 
+router.put('/trolley', validationMiddleware, controllers.trolley.add)
+
+router.get('/trolley', validationMiddleware, controllers.trolley.list)
+
+router.post('/trolley', validationMiddleware, controllers.trolley.update)
 
 module.exports = router
