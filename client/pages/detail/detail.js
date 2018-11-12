@@ -9,6 +9,7 @@ Page({
    */
   data: {
     product: {},
+    haveComment: true
   },
 
   /**
@@ -117,13 +118,21 @@ Page({
       },
       fail: ()=>{
         wx.hideLoading()
-
         wx.showToast({
           icon: 'none',
           title: '添加到购物车失败',
         })
       }
     })
+  },
+
+  onTapCommentEntry(){
+    let product = this.data.product 
+    if(product.commentCount) {
+      wx.navigateTo({
+        url: `/pages/comment/comment?id=${product.id}&price=${product.price}&name=${product.name}&image=${product.image}`,
+      })
+    }
   },
 
   onReady: function () {
